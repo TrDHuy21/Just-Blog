@@ -1,0 +1,17 @@
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Application.deps.json
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Application.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Application.pdb
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Domain.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Domain.pdb
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.csproj.AssemblyReference.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.GeneratedMSBuildEditorConfig.editorconfig
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.AssemblyInfoInputs.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.AssemblyInfo.cs
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.csproj.CoreCompileInputs.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Applicat.44B5EDA2.Up2Date
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\refint\Application.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\Application.pdb
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\obj\Debug\net8.0\ref\Application.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Infrastructure.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Application\bin\Debug\net8.0\Infrastructure.pdb

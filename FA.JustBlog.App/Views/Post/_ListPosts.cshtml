@@ -1,0 +1,28 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model List<Application.Dto.PostDtos.IndexPostDto>
+
+<div class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-primary text-white">
+        <h6 class="card-title mb-0">Top 5 highest views</h6>
+    </div>
+    <div class="card-body p-0">
+        <ul class="list-group list-group-flush">
+			@if(Model != null && Model.Any())
+			{
+                @foreach (var post in Model)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a href="@Url.Action("Detail", "Post", new {id = post.Id})" class="text-truncate">
+                            @post.Title
+                        </a>
+                        <span class="badge bg-primary rounded-pill">@post.Views</span>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+﻿@using Application.Helper
+@model Application.Dto.PageDtos.PageResultDto<Application.Dto.PostDtos.IndexPostDto>
+@{
+    ViewData["Title"] = "Index post";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<div class="container mt-5">
+    <h2>Post list</h2>
+    <div class="row">
+        <a href="/Post/Create" class="btn btn-primary">Create post</a>
+    </div>
+
+    <div>
+        <form method="get" asp-action="GetPostByFilter" asp-controller="AdminPost">
+            <input name="index" type="hidden" value="1" />
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label>Sắp xếp theo:</label>
+                    <select id="sortFilter" name="sapxep" class="form-control">
+                        <option value="latest" selected="@(ViewBag.SapXep == "latest")">Thời gian (mới nhất)</option>
+                        <option value="oldest" selected="@(ViewBag.SapXep == "oldest")">Thời gian (cũ nhất)</option>
+                        <option value="most-viewed" selected="@(ViewBag.SapXep == "most-viewed")">Lượt xem (cao nhất)</option>
+                        <option value="least-viewed" selected="@(ViewBag.SapXep == "least-viewed")">Lượt xem (thấp nhất)</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label>Trạng thái:</label>
+                    <select id="publishFilter" name="ispublish" class="form-control">
+                        <option value="all" selected="@(ViewBag.IsPublish == "all")">All</option>
+                        <option value="published" selected="@(ViewBag.IsPublish == "published")">Published</option>
+                        <option value="unpublished" selected="@(ViewBag.IsPublish == "unpublished")">Un published</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-primary form-control">Filter</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Summary</th>
+                <th>Created at</th>
+                <th>Views</th>
+                <th>Published</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Model != null) {
+				if (Model.Items != null && Model.Items.Any())
+				{
+                    foreach (var post in Model.Items)
+                    {
+                        <tr>
+                            <td>@post.Id</td>
+                            <td>
+                                @Html.ActionLink(
+                                         linkText: post.Title,
+                                         actionName: "FindPost",
+                                         controllerName: "Post",
+                                         routeValues: new
+                                         {
+                                             year = post.CreatedDate.Year,
+                                             month = post.CreatedDate.Month.ToString("00"),
+                                             title = post.Title.RemoveDiacritics().Replace(" ", "-").ToLower(),
+                                         },
+                                         // add class for css
+                                         htmlAttributes: new { @class = "post-title" }
+                                         )
+                            </td>
+                            <td>@post.Summary</td>
+                            <td>@post.CreatedDate</td>
+                            <td>@post.Views</td>
+                            <td>
+                                <form asp-action="Publish" asp-controller="AdminPost" method="post" class="d-inline">
+                                    <input name="Id" value="@post.Id" type="hidden" />
+                                    <button type="submit" class="btn btn-sm @(post.IsPublished ? "btn-success" : "btn-danger")">
+                                        @(post.IsPublished ? "Yes" : "No")
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "AdminPost", new { id = post.Id })" class="btn btn-primary btn-sm">Edit</a>
+                                <form action="@Url.Action("Delete", "AdminPost",new { id = post.Id })" method="post" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                }
+                // pagination navi
+                
+            }
+        </tbody>
+    </table>
+    <div class="container">
+        @if(Model != null) {
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    @* Previous button *@
+                    <li class="page-item @(Model.Page <= 1 ? "disabled" : "")">
+                        <a class="page-link" href="@Url.RouteUrl(null, new { controller = "Post", action = "IndexPostPage", index = Model.Page - 1 })" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    @{
+                        const int maxPagesToShow = 5;
+                        int startPage = Math.Max(1, Model.Page - (maxPagesToShow / 2));
+                        int endPage = Math.Min(Model.TotalPages, startPage + maxPagesToShow - 1);
+
+                        // Adjust start page if we're near the end
+                        if (endPage - startPage + 1 < maxPagesToShow && startPage > 1)
+                        {
+                            startPage = Math.Max(1, endPage - maxPagesToShow + 1);
+                        }
+
+                        // First page link if not in range
+                        if (startPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/post/page/1">1</a>
+                            </li>
+                            @if (startPage > 2)
+                            {
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            }
+                        }
+
+                        // Page numbers
+                        for (int i = startPage; i <= endPage; i++)
+                        {
+                            <li class="page-item @(i == Model.Page ? "active" : "")">
+                                <a class="page-link" href="/post/page/@i">@i</a>
+                            </li>
+                        }
+
+                        // Last page link if not in range
+                        if (endPage < Model.TotalPages)
+                        {
+                            @if (endPage < Model.TotalPages - 1)
+                            {
+                                <li class="page-item disabled">
+                                    <span class="page-link">...</span>
+                                </li>
+                            }
+                            <li class="page-item">
+                                <a class="page-link" href="/post/page/@Model.TotalPages">@Model.TotalPages</a>
+                            </li>
+                        }
+                    }
+
+                    @* Next button *@
+                    <li class="page-item @(Model.Page >= Model.TotalPages ? "disabled" : "")">
+                        <a class="page-link" href="/post/page/@(Model.Page + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        }
+        
+    </div>
+</div>

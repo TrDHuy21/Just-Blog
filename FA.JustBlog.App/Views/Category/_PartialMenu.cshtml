@@ -1,0 +1,13 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<Application.Dto.CategoryDtos.IndexCategoryDto>
+
+@if(Model != null && Model.Any()) {
+    foreach(var c in Model) {
+		<li class="nav-item">
+			<a class="nav-link px-lg-3 py-3 py-lg-4" asp-controller="Post" asp-action="FindByCategory" asp-route-id="@c.Id">@c.CategoryName</a>
+		</li>
+    }
+}

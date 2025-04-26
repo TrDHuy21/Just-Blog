@@ -1,0 +1,39 @@
+﻿@model List<Application.Dto.CategoryDtos.IndexCategoryDto>
+
+@{
+    ViewData["Title"] = "List category ";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2>Categories</h2>
+    <a href="@Url.Action("Create", "AdminCategory")" class="btn btn-primary btn-sm">Create category</a>
+    <br />
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Category Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.CategoryName</td>
+                    <td>@category.Description</td>
+                    <td>
+						<a href="@Url.Action("Edit", "AdminCategory", new { id = category.Id })" class="btn btn-primary btn-sm">Edit</a>
+                        <form action="@Url.Action("Delete", "AdminCategory",new { id = category.Id })" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

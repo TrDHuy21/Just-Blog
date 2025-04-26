@@ -1,0 +1,96 @@
+﻿@*
+    Enhanced comment section with improved styling
+*@
+@model List<Application.Dto.CommentDtos.IndexCommentDto>
+
+<div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h4 class="mb-0">Comments</h4>
+                </div>
+                <div class="card-body">
+                    <div class="comment-form mb-4">
+                        <form asp-controller="Comment" asp-action="Create" method="post">
+                            <input type="hidden" name="postId" value="@ViewData["PostId"]" />
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="content" placeholder="Add a comment..." required>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        <div class="comments-list">
+                            @foreach (var c in Model)
+                            {
+                                <div class="comment-item mb-3 pb-3 border-bottom">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="avatar-circle me-2">
+                                            <span class="initials">@c.UserName.Substring(0, 1).ToUpper()</span>
+                                        </div>
+                                        <div>
+                                            <h6 class="mb-0 fw-bold">@c.UserName</h6>
+                                            <small class="text-muted">@Html.GenDate(createdDate: c.CreatedDate)</small>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content">
+                                        <p class="mb-0">@c.Content</p>
+                                    </div>
+                                    <div class="comment-actions mt-2">
+                                        <button class="btn btn-sm btn-link p-0 text-decoration-none me-3">
+                                            <i class="fa fa-thumbs-up me-1"></i> Like
+                                        </button>
+                                        <button class="btn btn-sm btn-link p-0 text-decoration-none">
+                                            <i class="fa fa-reply me-1"></i> Reply
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .avatar-circle {
+        width: 40px;
+        height: 40px;
+        background-color: #007bff;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    .initials {
+        font-size: 18px;
+    }
+
+    .comment-actions button {
+        color: #6c757d;
+        font-size: 0.875rem;
+    }
+
+        .comment-actions button:hover {
+            color: #007bff;
+        }
+</style>
+
+@* Add Font Awesome if not already included in your project *@
+@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> *@

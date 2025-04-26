@@ -1,0 +1,14 @@
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\bin\Debug\net8.0\Domain.deps.json
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\bin\Debug\net8.0\Domain.runtimeconfig.json
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\bin\Debug\net8.0\Domain.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\bin\Debug\net8.0\Domain.pdb
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.csproj.AssemblyReference.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\refint\Domain.dll
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.pdb
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\Domain.genruntimeconfig.cache
+E:\fpt\c_sharp_project\NWBC_Assignment01_v5.0(JustBlog)\program\FA.JustBlog\Domain\obj\Debug\net8.0\ref\Domain.dll

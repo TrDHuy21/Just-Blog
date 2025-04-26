@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@model Application.Dto.CategoryDtos.UpdateCategoryDto
+<h2>Update Category</h2>
+
+<div class="container mt-5">
+    <h2>Cập Nhật Danh Mục</h2>
+    <form asp-action="Edit" asp-controller="AdminCategory" method="post">
+        <input type="hidden" asp-for="Id" />
+
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label">Tên Danh Mục</label>
+            <input type="text" asp-for="CategoryName" class="form-control" required />
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Mô Tả</label>
+            <textarea asp-for="Description" class="form-control" required></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cập Nhật</button>
+        <a href="@Url.Action("Index", "AdminCategory")" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

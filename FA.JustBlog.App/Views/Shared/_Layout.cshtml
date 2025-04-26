@@ -1,0 +1,190 @@
+﻿@using Application.Dto.CategoryDtos
+@using Application.Dto.UserDtos
+@using FA.JustBlog.App.Config
+@using System.IdentityModel.Tokens.Jwt
+@using Microsoft.AspNetCore.Mvc.Rendering
+@inject IHttpClientFactory _clientFactory
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+	var _httpClient = _clientFactory.CreateClient();
+	var Categories = await _httpClient.GetFromJsonAsync<List<IndexCategoryDto>>(CommonUrl.CATEGORY_GET_ALL);
+	UserDto User = null;
+	var token = HttpContextAccessor.HttpContext.Request.Cookies["Jwt"];
+	if (token != null)
+	{
+		try
+		{
+			var handler = new JwtSecurityTokenHandler();
+			var jwtToken = handler.ReadJwtToken(token);
+			var claims = jwtToken.Claims.ToList();
+			var id = Convert.ToInt16(claims.Find(c => c.Type == "nameid")?.Value);
+			User = await _httpClient.GetFromJsonAsync<UserDto>(CommonUrl.USER_GET_BY_ID(id));
+		}
+		catch
+		{
+			User = null;
+		}
+	}
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Clean Blog - Start Bootstrap Theme</title>
+	<link rel="icon" type="image/x-icon" href="~/assets/favicon.ico" />
+	<!-- Font Awesome icons (free version)-->
+	<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+	<!-- Google fonts-->
+	<link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link href="~/css/styles.css" rel="stylesheet" />
+
+	<!-- jQuery & DataTables -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+</head>
+<body>
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+		<div class="container px-4 px-lg-5">
+			<a class="navbar-brand" href="#">Start Bootstrap1</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				Menu
+				<i class="fas fa-bars"></i>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto py-4 py-lg-0">
+					<li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="@Url.Action("Index", "Home")">Home</a></li>
+
+					<li id="CategoryMenu"></li>
+
+					@if (User == null)
+					{
+						<li class="nav-item">
+							<a class="nav-link px-lg-3 py-3 py-lg-4" href="@Url.Action("index", "Login")">Login</a>
+						</li>
+					}
+					else
+					{
+						<li class="nav-item dropdown">
+							<a class="nav-link px-lg-3 py-3 py-lg-4 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								@User.FullName
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								@if (User.RoleName == "Admin")
+								{
+									<li><a class="dropdown-item" asp-controller="AdminHome" asp-action="Index">Admin page</a></li>
+								}
+								<li><a class="dropdown-item" asp-controller="Login" asp-action="Logout">Logout</a></li>
+							</ul>
+						</li>
+						@if (User.RoleName == "Contributor")
+						{
+							<li class="nav-item">
+								<a class="nav-link px-lg-3 py-3 py-lg-4" href="@Url.Action("GetMyPost", "ContributorPost")">My post</a>
+							</li>
+						}
+					}
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- Page Header-->
+	<header class="masthead" style="background-image: url('assets/img/home-bg.jpg')">
+		<div class="container position-relative px-4 px-lg-5">
+			<div class="row gx-4 gx-lg-5 justify-content-center">
+				<div class="col-md-10 col-lg-8 col-xl-7">
+					<div class="site-heading">
+						<h1>Just Blog</h1>
+						<span class="subheading">Tran Duc Huy</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+
+	<!-- Main Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-2">
+				<div class="row" id="PartialAboutCard"></div>
+				<div class="row" id="HighestViewsPosts"></div>
+			</div>
+			<div class="col-md-8">
+				@RenderBody()
+			</div>
+			<div class="col-md-2">
+				<div class="row" id="PopularTags"></div>
+			</div>
+		</div>
+	</div>
+	
+
+	<!-- Footer-->
+	<partial name="_PartialFooter" />
+	<!-- Bootstrap core JS-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			$.ajax({
+				url: '@Url.Action("ParitalAboutCard", "Home")',
+				type: 'GET',
+				success: function(result) {
+					$('#PartialAboutCard').html(result);
+				},
+				error: function() {
+					$('#PartialAboutCard').html('Không thể tải thông tin');
+				}
+			});
+			$.ajax({
+				url: '@Url.Action("GetTopView", "Post")',
+				type: 'GET',
+				success: function(result) {
+					$('#HighestViewsPosts').html(result);
+					console.log(result)
+				},
+				error: function() {
+					$('#HighestViewsPosts').html('Không thể tải thông tin');
+					console.log(result)
+
+				}
+			});
+			$.ajax({
+				url: '@Url.Action("PopularTags", "Tag")',
+				type: 'GET',
+				success: function(result) {
+					$('#PopularTags').html(result);
+					console.log(result)
+				},
+				error: function() {
+					$('#PopularTags').html('Không thể tải thông tin');
+					console.log(result)
+
+				}
+			});
+			$.ajax({
+				url: '@Url.Action("PartialMenu", "Category")',
+				type: 'GET',
+				success: function(result) {
+					$('#CategoryMenu').replaceWith(result);
+					console.log(result)
+				},
+				error: function(result) {
+					$('#CategoryMenu').html('Không thể tải thông tin');
+					console.log(result)
+
+				}
+			});
+		});
+	</script>
+</body>
+</html>

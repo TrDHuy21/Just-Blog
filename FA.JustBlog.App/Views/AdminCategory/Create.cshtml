@@ -1,0 +1,29 @@
+﻿@model Application.Dto.CategoryDtos.UpdateCategoryDto
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Create Categorry</h2>
+
+
+<div class="container mt-5">
+    <form asp-action="Create" asp-controller="AdminCategory" method="post">
+
+        <div class="mb-3">
+            <label asp-for="CategoryName" class="form-label">Category Name</label>
+            <input type="text" asp-for="CategoryName" class="form-control" required />
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Description" class="form-label">Description</label>
+            <textarea asp-for="Description" class="form-control" required></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="@Url.Action("Index", "AdminCategory")" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

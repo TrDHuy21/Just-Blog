@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "FrvkgFahJI/HrwghXqI0luJSp+SaTOqVKaM/F3nQB0o=",
+  "Source": "FA.JustBlog.Api",
+  "BasePath": "_content/FA.JustBlog.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
